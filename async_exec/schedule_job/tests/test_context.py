@@ -4,13 +4,18 @@ from async_exec.models import Job
 from datetime import datetime
 from django.test import TestCase
 
-class TestScheduleJob(TestCase):
+class WithJobModel(TestCase):
     def setUp(self):
         self.job = Job()
 
+class WithJobStub(TestCase):
+    def setUp(self):
+        self.job = Stub()
+
+class TestSchedule(object):
     def test_job_is_persisted(self):
         with ScheduleJob(None, self.job, sample_function) as context:
-            self.assertTrue(context.job.id)
+            self.assertTrue(hasattr(context.job 'id'))
         
     def test_successfully_schedule_job_with_no_scheduled_time(self):
         with ScheduleJob(None, self.job, sample_function) as context:
@@ -25,3 +30,8 @@ class TestScheduleJob(TestCase):
         with ScheduleJob(None, self.job, sample_function, name = 'John') as context:
             self.assertEqual('{"name": "John"}', context.job.kwargs)
         
+class TestWithStub(TestScheduleJob, WithStub):
+    pass
+class TestWithModel(TestScheduleJob, WithModel):
+    pass
+
