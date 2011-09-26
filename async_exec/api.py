@@ -5,8 +5,7 @@ def schedule(function, args = None, kwargs = None, schedule_time = None):
     job = Job()
     args = args or []
     kwargs = kwargs or {}
-    with ScheduleJob(schedule_time, job, function, *args, **kwargs) as context:
-        # Conditions may not change in here because post conditions are met! 
-        pass
+    context = ScheduleJob(schedule_time, job, function, *args, **kwargs)
+    context()
     return job
     
