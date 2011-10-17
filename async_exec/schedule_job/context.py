@@ -10,9 +10,8 @@ class Context(object):
         self.__exit__()
 
     def __enter__(self):
-        self.setup(*self.__args, **self.__kwargs)
         self.pre_conditions()
-        self.use_case()
+        self.execute()
         self.post_conditions()
         return self
 
